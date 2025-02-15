@@ -17,7 +17,7 @@ export class User extends Abstract {
   @Field({ nullable: true })
   profileImage?: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   password: string;
 }
 

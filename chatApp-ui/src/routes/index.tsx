@@ -5,8 +5,13 @@ import SignUp from "../components/auth/signup";
 import Home from "../components/home";
 import Chat from "../components/chat";
 import Profile from "../components/profile";
+import GoogleCallback from "../components/auth/googleCallback";
 
 const router = createBrowserRouter([
+  {
+    path: "/auth/google/callback",
+    element: <GoogleCallback />,
+  },
   {
     path: "/login",
     element: <Login />,

@@ -9,7 +9,7 @@ export abstract class AbstractRepository<T extends Abstract> {
     this.logger = new Logger(this.constructor.name);
   }
 
-  async create(document: Omit<T, '_id'>): Promise<T> {
+  async create(document: Omit<T, '_id' | 'password'>): Promise<T> {
     try {
       const newDocument = new this.model({
         _id: new Types.ObjectId(),

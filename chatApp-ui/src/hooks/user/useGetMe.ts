@@ -15,7 +15,6 @@ const GET_ME = gql`
       _id
       email
       username
-      profileImage
     }
   }
 `;

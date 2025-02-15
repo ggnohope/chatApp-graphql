@@ -6,7 +6,10 @@ import {
   UnauthorizedException,
   Inject,
 } from '@nestjs/common';
-import { CreateUserInput } from '../dto/create-user.input';
+import {
+  CreateGoogleUserInput,
+  CreateUserInput,
+} from '../dto/create-user.input';
 import { UpdateUserInput } from '../dto/update-user.input';
 import * as bcrypt from 'bcrypt';
 import { SupabaseService } from 'src/modules/supabase/supabase.service';
@@ -55,6 +58,20 @@ export class UsersService {
     const userToCreate = { ...createUserInput, password: hashedPassword };
 
     return await this.userRepository.create(userToCreate);
+  }
+
+  async createGoogleUser(createUserInput: CreateGoogleUserInput) {
+    if (await this.userRepository.findOne({ email: createUserInput.email })) {
+      throw new ConflictException(' Email already exists! ');
+    }
+
+    if (
+      await this.userRepository.findOne({ username: createUserInput.username })
+    ) {
+      throw new ConflictException(' Username already exists! ');
+    }
+
+    return await this.userRepository.create(createUserInput);
   }
 
   async findAll(
